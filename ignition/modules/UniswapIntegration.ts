@@ -1,20 +1,17 @@
-// This setup uses Hardhat Ignition to manage smart contract deployments.
-// Learn more about it at https://hardhat.org/ignition
-
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const JAN_1ST_2030 = 1893456000;
-const ONE_GWEI: bigint = 1_000_000_000n;
+const UniswapIntegrationModule = buildModule("UniswapIntegrationModule", (m) => {
+  // Parâmetro que pode ser alterado por rede (por exemplo: Mainnet, Polygon, Localhost)
+  const uniswapRouter = m.getParameter("uniswapRouter", "0xE592427A0AEce92De3Edee1F18E0157C05861564");
 
-const LockModule = buildModule("LockModule", (m) => {
-  const unlockTime = m.getParameter("unlockTime", JAN_1ST_2030);
-  const lockedAmount = m.getParameter("lockedAmount", ONE_GWEI);
-
-  const lock = m.contract("Lock", [unlockTime], {
-    value: lockedAmount,
+  const uniswapIntegration = m.contract("UniswapIntegration", [], {
+    // Passa nada no construtor, mas depois setamos o router
   });
 
-  return { lock };
+  // Após o deploy, chama `setUniswap(...)`
+  m.call(uniswapIntegration, "setUniswap", [uniswapRouter]);
+
+  return { uniswapIntegration };
 });
 
-export default LockModule;
+export default UniswapIntegrationModule;

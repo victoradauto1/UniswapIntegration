@@ -5,7 +5,8 @@
   "scripts": {
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
-    "coverage": "npx hardhat coverage"
+    "coverage": "npx hardhat coverage",
+    "deploy": "npx hardhat ignition deploy ./ignition/modules/UniswapIntegration.ts --network amoy"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +14,13 @@
   "description": "",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.14",
     "hardhat": "^2.24.3",
     "solidity-coverage": "^0.8.16"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.6",
-    "@uniswap/v3-periphery": "^1.4.4"
+    "@uniswap/v3-periphery": "^1.4.4",
+    "dotenv": "^16.5.0"
   }
 }
